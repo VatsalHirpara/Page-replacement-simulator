@@ -1,5 +1,8 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class vmsim {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
        if (args.length!=3) {
             System.out.println("Enter command line arguments like shown below:");
@@ -11,9 +14,7 @@ public class vmsim {
         int max_pfn = Integer.parseInt(args[0]);
         String input_file= args[1];
         String algo = args[2];
-
-
-
+        simulation_engine.run(max_pfn,input_file,algo);
         
     }
 }
