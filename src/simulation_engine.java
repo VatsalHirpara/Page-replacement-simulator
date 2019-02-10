@@ -15,7 +15,7 @@ public class simulation_engine {
     }
 
 
-    private static void lru(int max_pfn,String input_file,String algo,boolean flag) throws FileNotFoundException {
+    private static void lru(int max_pfn,String input_file,String algo,boolean flag) throws IOException {
         Scanner in = new Scanner(new File(input_file));
         ArrayList<Integer> input = new ArrayList<>();
         ArrayList<Integer> queue = new ArrayList<>(max_pfn);
@@ -52,13 +52,19 @@ public class simulation_engine {
 
         }
 
-        float miss_rate=(float) miss/(input.size()-max_pfn);
+        double miss_rate=(double) miss/(input.size()-max_pfn);
         System.out.printf("Miss rate = %d / %d = %.2f %% \n",miss,input.size()-max_pfn,miss_rate*100);
 
+        String s=String.format("%.2f",miss_rate*100);
+
+        FileWriter fw = new FileWriter("vmrates.dat", true);
+        fw.write(s);
+        fw.write(" ");
+        fw.close();
     }
 
 
-    private static void fifo(int max_pfn,String input_file,String algo,boolean flag) throws FileNotFoundException {
+    private static void fifo(int max_pfn,String input_file,String algo,boolean flag) throws IOException {
         Scanner in=null;
         in = new Scanner(new File(input_file));
         ArrayList<Integer> queue = new ArrayList<>();
@@ -92,12 +98,19 @@ public class simulation_engine {
                 if (flag)System.out.println("");
             }
         }
-        float miss_rate=(float) miss/(queue.size()-max_pfn);
+        double miss_rate=(double) miss/(queue.size()-max_pfn);
         System.out.printf("Miss rate = %d / %d = %.2f %% \n",miss,queue.size()-max_pfn,miss_rate*100);
+
+        String s=String.format("%.2f",miss_rate*100);
+
+        FileWriter fw = new FileWriter("vmrates.dat", true);
+        fw.write(s);
+        fw.write(" ");
+        fw.close();
     }
 
 
-    private static void opt(int max_pfn,String input_file,String algo,boolean flag) throws FileNotFoundException {
+    private static void opt(int max_pfn,String input_file,String algo,boolean flag) throws IOException {
 
         Scanner in = new Scanner(new File(input_file));
         ArrayList<Integer> input = new ArrayList<>();
@@ -130,6 +143,13 @@ public class simulation_engine {
         }
         float miss_rate=(float) miss/(input.size()-max_pfn);
         System.out.printf("Miss rate = %d / %d = %.2f %% \n",miss,input.size()-max_pfn,miss_rate*100);
+
+        String s=String.format("%.2f",miss_rate*100);
+
+        FileWriter fw = new FileWriter("vmrates.dat", true);
+        fw.write(s);
+        fw.write(" ");
+        fw.close();
 
     }
 
