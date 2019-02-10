@@ -97,10 +97,60 @@ public class simulation_engine {
     }
 
 
-    private static void opt(int max_pfn,String input_file,String algo,boolean flag){
+    private static void opt(int max_pfn,String input_file,String algo,boolean flag) throws FileNotFoundException {
+
+        Scanner in = new Scanner(new File(input_file));
+        ArrayList<Integer> input = new ArrayList<>();
+        ArrayList<Integer> page_table = new ArrayList<>(max_pfn);
+        while(in.hasNextInt()){
+            input.add(in.nextInt());
+        }
+
+        int miss=0,farthest_index;
+        for (int i = 0; i <input.size() ; i++) {
+            if(flag) System.out.print(input.get(i)+" :");
+            if(page_table.indexOf(input.get(i))==-1){
+                if(page_table.size()==max_pfn)miss++;
+                if (page_table.size() < max_pfn) {
+                    page_table.add(input.get(i));
+                    if(flag)print(page_table, max_pfn);
+                }
+                else{
+                    farthest_index = farthest(page_table, input, i + 1);
+                    page_table.set(farthest_index,input.get(i));
+                    if(flag)print(page_table, max_pfn);
+                }
+                if(flag)System.out.print("  F");
+                if(flag)System.out.println("");
+            }
+            else {
+                if(flag)print(page_table, max_pfn);
+                if(flag)System.out.println("");
+            }
+        }
+        float miss_rate=(float) miss/(input.size()-max_pfn);
+        System.out.printf("Miss rate = %d / %d = %.2f %% \n",miss,input.size()-max_pfn,miss_rate*100);
 
     }
 
+    private static int farthest(ArrayList<Integer> page_table,ArrayList<Integer> input,int index) {
+        int temp = -1, farthest = index;
+        for (int i = 0; i < page_table.size(); i++) {
+            int j;
+            for (j = index; j < input.size(); j++) {
+                if (page_table.get(i).equals(input.get(j))) {
+                    if (j > farthest) {
+                        farthest = j;
+                        temp = i;
+                    }
+                    break;
+                }
+            }
+            if (j == input.size()) return i;
+        }
+        if (temp==-1) return (int) (Math.random()*page_table.size());
+        else return temp;
+    }
 
 
     private static void print(ArrayList<Integer> list, int max_pfn){
