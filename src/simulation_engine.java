@@ -14,10 +14,50 @@ public class simulation_engine {
         }
     }
 
-    private static void lru(int max_pfn,String input_file,String algo,boolean flag){
+
+    private static void lru(int max_pfn,String input_file,String algo,boolean flag) throws FileNotFoundException {
+        Scanner in = new Scanner(new File(input_file));
+        ArrayList<Integer> input = new ArrayList<>();
+        ArrayList<Integer> queue = new ArrayList<>(max_pfn);
+        ArrayList<Integer> page_table = new ArrayList<>(max_pfn);
+        while(in.hasNextInt()){
+            input.add(in.nextInt());
+        }
+
+        int miss=0;
+        for (int current:input){
+            if(flag) System.out.print(current+" :");
+            if(page_table.indexOf(current)==-1){
+                if(page_table.size()==max_pfn)miss++;
+                if (page_table.size() < max_pfn) {
+                    queue.add(current);
+                    page_table.add(current);
+                    if(flag)print(page_table, max_pfn);
+                }
+                else{
+                    page_table.set(page_table.indexOf(queue.get(0)),current) ;
+                    queue.remove(0);
+                    queue.add(current);
+                    if(flag)print(page_table, max_pfn);
+                }
+                if(flag)System.out.print("  F");
+                if(flag)System.out.println("");
+            }
+            else{
+                queue.remove((Object)current);
+                queue.add(current);
+                if(flag)print(page_table, max_pfn);
+                if(flag)System.out.println("");
+            }
+
+        }
+
+        float miss_rate=(float) miss/(input.size()-max_pfn);
+        System.out.printf("Miss rate = %d / %d = %.2f %% \n",miss,input.size()-max_pfn,miss_rate*100);
 
     }
-// if (flag==true)
+
+
     private static void fifo(int max_pfn,String input_file,String algo,boolean flag) throws FileNotFoundException {
         Scanner in=null;
         in = new Scanner(new File(input_file));
@@ -32,7 +72,9 @@ public class simulation_engine {
         for (int j = 0; j <queue.size() ; j++){
 
             if (flag) System.out.print(queue.get(j)+": ");
+
             if(page_table.indexOf(queue.get(j))==-1) {
+
                 if(page_table.size()==max_pfn)miss++;
                 if (page_table.size() < max_pfn) {
                     page_table.add(queue.get(j));
@@ -53,6 +95,7 @@ public class simulation_engine {
         float miss_rate=(float) miss/(queue.size()-max_pfn);
         System.out.printf("Miss rate = %d / %d = %.2f %% \n",miss,queue.size()-max_pfn,miss_rate*100);
     }
+
 
     private static void opt(int max_pfn,String input_file,String algo,boolean flag){
 
