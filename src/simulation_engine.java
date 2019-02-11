@@ -4,18 +4,18 @@ import java.io.*;
 public class simulation_engine {
     public static void run(int max_pfn,String input_file,String algo,boolean flag) throws IOException {
         if(algo.equalsIgnoreCase("lru")){
-            lru(max_pfn, input_file,algo,flag);
+            lru(max_pfn, input_file,flag);
         }
         else if (algo.equalsIgnoreCase("fifo")){
-            fifo(max_pfn, input_file,algo,flag);
+            fifo(max_pfn, input_file,flag);
         }
         else if (algo.equalsIgnoreCase("opt")){
-            opt(max_pfn, input_file,algo,flag);
+            opt(max_pfn, input_file,flag);
         }
     }
 
 
-    private static void lru(int max_pfn,String input_file,String algo,boolean flag) throws IOException {
+    private static void lru(int max_pfn,String input_file,boolean flag) throws IOException {
         Scanner in = new Scanner(new File(input_file));
         ArrayList<Integer> input = new ArrayList<>();
         ArrayList<Integer> queue = new ArrayList<>(max_pfn);
@@ -64,7 +64,7 @@ public class simulation_engine {
     }
 
 
-    private static void fifo(int max_pfn,String input_file,String algo,boolean flag) throws IOException {
+    private static void fifo(int max_pfn,String input_file,boolean flag) throws IOException {
         Scanner in=null;
         in = new Scanner(new File(input_file));
         ArrayList<Integer> queue = new ArrayList<>();
@@ -110,7 +110,7 @@ public class simulation_engine {
     }
 
 
-    private static void opt(int max_pfn,String input_file,String algo,boolean flag) throws IOException {
+    private static void opt(int max_pfn,String input_file,boolean flag) throws IOException {
 
         Scanner in = new Scanner(new File(input_file));
         ArrayList<Integer> input = new ArrayList<>();

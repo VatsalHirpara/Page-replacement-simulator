@@ -1,5 +1,4 @@
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 
 public class vmsim {
     public static void main(String[] args) throws IOException {
@@ -14,7 +13,7 @@ public class vmsim {
         int max_pfn = Integer.parseInt(args[0]);
         String input_file= args[1];
         String algo = args[2];
-        simulation_engine.run(max_pfn,input_file,algo);
+        simulation_engine.run(max_pfn,input_file,algo,true);
         
     }
 }

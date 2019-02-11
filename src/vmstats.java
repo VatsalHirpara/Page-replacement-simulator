@@ -22,21 +22,21 @@ public class vmstats {
 
 
         for (int i = min_frame; i <=max_frame ;i+= increment ) {
-            System.out.print("opt, " + i + " frames :");
+            System.out.print("opt, " + i + " frames : ");
             simulation_engine.run(i,input_file,"opt",false);
         }
         System.out.println("");
         bw.write("\n"); bw.flush();
 
         for (int i = min_frame; i <=max_frame ;i+= increment ) {
-            System.out.print("lru, " + i + " frames :");
+            System.out.print("lru, " + i + " frames : ");
             simulation_engine.run(i,input_file,"lru",false);
         }
         System.out.println("");
         bw.write("\n"); bw.flush();
 
         for (int i = min_frame; i <=max_frame ;i+= increment ) {
-            System.out.print("fifo, " + i + " frames :");
+            System.out.print("fifo, " + i + " frames : ");
             simulation_engine.run(i,input_file,"fifo",false);
         }
     }
